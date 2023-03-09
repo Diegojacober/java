@@ -11,7 +11,7 @@ public class Exercicios {
 
         while (true){
             System.out.println("\n Digite o numero de qual operação deseja: \n 1 - Converter Graus Celsius para Fahnhreit \n 2 - Converter Graus Fahnreit para Celsius" +
-                    "3 - Ver IMC \n 4 - Valor ao cubo e ao quadrado \n 5 - Area do Triângulo \n 6 - Valor de delta");
+                    "3 - Ver IMC \n 4 - Valor ao cubo e ao quadrado \n 5 - Area do Triângulo \n 6 - Valor de delta \n\nDigite o número da sua opção: ");
 
             int opcao = sc.nextInt();
 
@@ -55,6 +55,9 @@ public class Exercicios {
                     System.out.println("Digite o valor de : ");
                     double c = sc.nextDouble();
                     System.out.printf("O delta vale  %.2f",Matematica.delta(a,b,c));
+                    break;
+                default:
+                    System.out.println("Você digitou uma opção inválida");
                     break;
             }
         }
