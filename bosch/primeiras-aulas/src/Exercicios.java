@@ -26,6 +26,7 @@ public class Exercicios {
                     double grausF = sc.nextDouble();
                     System.out.printf("A temperatura em graus Celsius é %.2f \n",exercicio2(grausF));
                     System.out.println();
+                    break;
                 case 3:
                     System.out.println("Digite o nome da pessoa: ");
                     String nome = sc.nextLine();
@@ -52,7 +53,7 @@ public class Exercicios {
                     double a = sc.nextDouble();
                     System.out.println("Digite o valor de B: ");
                     double b = sc.nextDouble();
-                    System.out.println("Digite o valor de : ");
+                    System.out.println("Digite o valor de C: ");
                     double c = sc.nextDouble();
                     System.out.printf("O delta vale  %.2f",Matematica.delta(a,b,c));
                     break;
