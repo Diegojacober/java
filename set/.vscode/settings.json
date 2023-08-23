@@ -1,0 +1,17 @@
+{
+    "java.project.sourcePaths": ["src"],
+    "java.project.outputPath": "bin",
+    "java.project.referencedLibraries": [
+        "lib/**/*.jar"
+    ],
+    "code-runner.runInTerminal": true,
+    "code-runner.clearPreviousOutput": true,
+    "code-runner.executorMap": {
+        "javascript": "node",
+        "java": "cd $dir && javac ../../bin/$fileNameWithoutExt; clear; cd $dir; cd..; cd..; cd bin/; java $fileNameWithoutExt",
+        // "java": "clear; java '-cp' 'bin' 'application.Program'",
+        // C:\Program Files\RedHat\java-1.8.0-openjdk\bin\java.exe' '-cp' 'C:\Users\ct67ca\Desktop\java\set\bin' 'application.Program' 
+        "php": "php",
+        "python": "python -u",
+    }
+}
