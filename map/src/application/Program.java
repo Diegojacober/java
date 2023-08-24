@@ -1,7 +1,13 @@
 package application;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.time.Instant;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 import entities.Product;
 
@@ -51,6 +57,7 @@ public class Program {
          * 
          */
 
+         /*
         Map<Product, Double> stock = new HashMap<>();
         Product p1 = new Product("Tv", 900.0);
         Product p2 = new Product("Notebook", 1200.0);
@@ -61,8 +68,46 @@ public class Program {
         stock.put(p3, 15000.0);
 
         Product ps = new Product("Tv", 900.0);
-        
+
         System.out.println("Contains 'ps' key: " + stock.containsKey(ps));
+
+        */
+
+        //Exercicio map
+
+        String path = "C:\\temp\\a.csv";
+        
+          try (BufferedReader br = new BufferedReader(new FileReader(path))) {
+
+            Map <String, Integer> map = new HashMap<>();
+
+            String line = br.readLine();
+            while (line != null) {
+
+                String[] data = line.split(",");
+                
+                String name = data[0];
+
+
+                if (map.containsKey(name)) {
+                    map.put(name, ( map.get(name) + Integer.parseInt(data[1])));
+                } else {
+                    map.put(name, Integer.parseInt(data[1]));
+                }
+                line = br.readLine();
+
+            }
+
+            for(String name: map.keySet()) {
+                System.out.println("Votos em " + name + ": " + map.get(name));
+            }
+
+        } catch (IOException e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+
+
+
     }
 
 }
