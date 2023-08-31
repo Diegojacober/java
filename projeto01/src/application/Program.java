@@ -31,6 +31,7 @@ public class Program {
             DB.closeResultSet(rs);
             DB.closeStatement(stmt);
             DB.closeConnection();
+
         }
 
     }
