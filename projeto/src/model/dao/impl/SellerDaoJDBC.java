@@ -120,7 +120,6 @@ public class SellerDaoJDBC implements SellerDao {
 
     @Override
     public void insert(Seller obj) {
-
         PreparedStatement stmt = null;
         try {
             stmt = conn.prepareStatement(
@@ -158,8 +157,26 @@ public class SellerDaoJDBC implements SellerDao {
 
     @Override
     public void update(Seller obj) {
+        PreparedStatement stmt = null;
+        try {
+            stmt = conn.prepareStatement(
+                    "UPDATE seller "
+                        + "SET Name = ?, Email = ?, BirthDate = ?, BaseSalary = ?, DepartmentId = ? "
+                        + "WHERE Id = ?");
 
+            stmt.setString(1, obj.getName());
+            stmt.setString(2, obj.getEmail());
+            stmt.setDate(3, new java.sql.Date(obj.getBirthDate().getTime()));
+            stmt.setDouble(4, obj.getBaseSalary());
+            stmt.setInt(5, obj.getDepartment().getId());
+            stmt.setInt(6, obj.getId());
 
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            throw new DbException(e.getMessage());
+        } finally {
+            DB.closeStatement(stmt);
+        }
     }
 
 
