@@ -2,3 +2,6 @@ bin/
 .env
 .vscode
 *.class
+out/
+.idea/
+.iml
