@@ -48,7 +48,6 @@ public class SellerDaoJDBC implements SellerDao {
                             "ON seller.DepartmentId = department.Id " +
                             "ORDER BY Name");
 
-
             rs = stmt.executeQuery();
 
             List<Seller> list = new ArrayList<>();
@@ -80,13 +79,13 @@ public class SellerDaoJDBC implements SellerDao {
     public Seller findById(Integer id) {
         PreparedStatement stmt = null;
         ResultSet rs = null;
-        
+
         try {
             stmt = conn.prepareStatement(
-                "SELECT seller.*,department.Name as DepName "
-                 + "FROM seller INNER JOIN department "
-                 + "ON seller.DepartmentId = department.Id "
-                 + "WHERE seller.Id = ?");
+                    "SELECT seller.*,department.Name as DepName "
+                            + "FROM seller INNER JOIN department "
+                            + "ON seller.DepartmentId = department.Id "
+                            + "WHERE seller.Id = ?");
 
             stmt.setInt(1, id);
 
@@ -133,10 +132,11 @@ public class SellerDaoJDBC implements SellerDao {
         PreparedStatement stmt = null;
         try {
             stmt = conn.prepareStatement(
-              "INSERT INTO seller"
-                  + "(Name, Email, BirthDate, BaseSalary, DepartmentId) "
-                  + "VALUES "
-                  + "(?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+                    "INSERT INTO seller"
+                            + "(Name, Email, BirthDate, BaseSalary, DepartmentId) "
+                            + "VALUES "
+                            + "(?, ?, ?, ?, ?)",
+                    Statement.RETURN_GENERATED_KEYS);
 
             stmt.setString(1, obj.getName());
             stmt.setString(2, obj.getEmail());
@@ -162,7 +162,6 @@ public class SellerDaoJDBC implements SellerDao {
         } finally {
             DB.closeStatement(stmt);
         }
-
     }
 
     @Override
@@ -171,8 +170,8 @@ public class SellerDaoJDBC implements SellerDao {
         try {
             stmt = conn.prepareStatement(
                     "UPDATE seller "
-                        + "SET Name = ?, Email = ?, BirthDate = ?, BaseSalary = ?, DepartmentId = ? "
-                        + "WHERE Id = ?");
+                            + "SET Name = ?, Email = ?, BirthDate = ?, BaseSalary = ?, DepartmentId = ? "
+                            + "WHERE Id = ?");
 
             stmt.setString(1, obj.getName());
             stmt.setString(2, obj.getEmail());
@@ -188,7 +187,6 @@ public class SellerDaoJDBC implements SellerDao {
             DB.closeStatement(stmt);
         }
     }
-
 
     @Override
     public List<Seller> findByDepartment(Department department) {
