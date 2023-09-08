@@ -12,12 +12,18 @@ import org.springframework.web.bind.annotation.RestController;
 import com.diegojacober.curso.entities.Order;
 import com.diegojacober.curso.services.OrderService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+// https://springdoc.org/v1/#demos
 @RestController
 @RequestMapping(value = "/orders")
+@Tag(name = "Orders", description = "Requests for orders in the system")
 public class OrderResource {
     
     @Autowired
     private OrderService service;
+
+    @Operation(description = "Get all orders")
 
     @GetMapping
     public ResponseEntity<List<Order>> findAll() {
@@ -26,6 +32,7 @@ public class OrderResource {
         return ResponseEntity.ok().body(list);
     }
 
+    @Operation(description = "Get a specific order by id")
     @GetMapping(value="/{id}")
     public ResponseEntity<Order> findById(@PathVariable Long id) {
         Order obj = service.findById(id);
