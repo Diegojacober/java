@@ -3,7 +3,6 @@ package com.diegojacober.curso.services;
 import java.util.List;
 import java.util.Optional;
 
-import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -14,19 +13,21 @@ import com.diegojacober.curso.repositories.UserRepository;
 import com.diegojacober.curso.services.exceptions.DatabaseException;
 import com.diegojacober.curso.services.exceptions.ResourceNotFoundException;
 
+import jakarta.persistence.EntityNotFoundException;
+
 @Service
 public class UserService {
-    
+
     @Autowired
     private UserRepository repository;
-    
+
     public List<User> findAll() {
         return repository.findAll();
     }
 
     public User findById(long id) {
         Optional<User> obj = repository.findById(id);
-        
+
         return obj.orElseThrow(() -> new ResourceNotFoundException(id));
     }
 
@@ -36,7 +37,8 @@ public class UserService {
 
     public void delete(Long id) {
         try {
-            if(!repository.existsById(id)) throw new ResourceNotFoundException(id);
+            if (!repository.existsById(id))
+                throw new ResourceNotFoundException(id);
             repository.deleteById(id);
         } catch (EmptyResultDataAccessException e) {
             throw new ResourceNotFoundException(id);
@@ -47,10 +49,14 @@ public class UserService {
 
     public User update(Long id, User obj) {
         // Ainda não busca no banco de dados, apenas cria um objeto monitorado pelo JPA
-        //Preparo para mexer e depois atualizo
-        User entity = repository.getReferenceById(id);
-        updateData(entity, obj);
-        return repository.save(entity);
+        // Preparo para mexer e depois atualizo
+        try {
+            User entity = repository.getReferenceById(id);
+            updateData(entity, obj);
+            return repository.save(entity);
+        } catch (EntityNotFoundException e) {
+            throw new ResourceNotFoundException(id);
+        }
     }
 
     private void updateData(User entity, User obj) {
